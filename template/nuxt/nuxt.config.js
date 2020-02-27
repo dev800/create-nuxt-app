@@ -87,9 +87,13 @@ module.exports = {
     <%_ if (typescript) {_%>
     '@nuxt/typescript-build',
     <%_ } _%>
-    <%_ if (eslint) { _%>
+    <%_ if (eslint && !typescript) { _%>
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    <%_ } _%>
+    <%_ if (stylelint) { _%>
+    // Doc: https://github.com/nuxt-community/stylelint-module
+    '@nuxtjs/stylelint-module',
     <%_ } _%>
     <%_ if (ui === 'tailwind') { _%>
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
@@ -118,6 +122,10 @@ module.exports = {
     <%_ } _%>
     <%_ if (pwa) { _%>
     '@nuxtjs/pwa',
+    <%_ } _%>
+    <%_ if (dotenv) { _%>
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
     <%_ } _%>
   ],
   <%_ if (axios) { _%>

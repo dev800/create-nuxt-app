@@ -15,8 +15,11 @@ module.exports = {
     const eslint = this.answers.linter.includes('eslint')
     const prettier = this.answers.linter.includes('prettier')
     const lintStaged = eslint && this.answers.linter.includes('lintStaged')
+    const stylelint = this.answers.linter.includes('stylelint')
     const axios = this.answers.features.includes('axios')
+    const dotenv = this.answers.features.includes('dotenv')
     const esm = this.answers.server === 'none'
+    const pm = this.answers.pm === 'yarn' ? 'yarn' : 'npm'
     const pmRun = this.answers.pm === 'yarn' ? 'yarn' : 'npm run'
 
     const { cliOptions = {} } = this.sao.opts
@@ -40,10 +43,13 @@ export default ${ifTrue(typescript, 'Vue.extend(' + componentOptions + ')', comp
       eslint,
       prettier,
       lintStaged,
+      stylelint,
       axios,
       esm,
       edge,
-      pmRun
+      pm,
+      pmRun,
+      dotenv
     }
   },
   actions() {
@@ -92,7 +98,7 @@ export default ${ifTrue(typescript, 'Vue.extend(' + componentOptions + ')', comp
         const files = {}
         for (const action of actions) {
           const options = { cwd: join(rootDir, action.templateDir), dot: true }
-          for (const file of glob.sync(`*`, options)) {
+          for (const file of glob.sync('*', options)) {
             files[file] = `resources/${file}`
           }
         }
@@ -117,8 +123,11 @@ export default ${ifTrue(typescript, 'Vue.extend(' + componentOptions + ')', comp
       filters: {
         '_.eslintrc.js': 'linter.includes("eslint")',
         '.prettierrc': 'linter.includes("prettier")',
-        'jsconfig.json': 'language.includes("js") && devTools.includes("jsconfig.json")',
-        'tsconfig.json': 'language.includes("ts")'
+        'jsconfig.json': 'devTools.includes("jsconfig.json")' && devTools.includes("jsconfig.json")',
+        'tsconfig.json': 'language.includes("ts")',
+        'semantic.yml': 'devTools.includes("semantic-pull-requests")',
+        '.env': 'features.includes("dotenv")',
+        '_stylelint.config.js': 'linter.includes("stylelint")'
       }
     })
 
@@ -127,7 +136,9 @@ export default ${ifTrue(typescript, 'Vue.extend(' + componentOptions + ')', comp
       patterns: {
         gitignore: '.gitignore',
         '_package.json': 'package.json',
-        '_.eslintrc.js': '.eslintrc.js'
+        '_.eslintrc.js': '.eslintrc.js',
+        '_stylelint.config.js': 'stylelint.config.js',
+        'semantic.yml': '.github/semantic.yml'
       }
     })
 

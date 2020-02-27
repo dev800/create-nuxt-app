@@ -92,7 +92,8 @@ module.exports = [
     pageSize: 10,
     choices: [
       { name: 'Axios', value: 'axios' },
-      { name: 'Progressive Web App (PWA) Support', value: 'pwa' }
+      { name: 'Progressive Web App (PWA) Support', value: 'pwa' },
+      { name: 'DotEnv', value: 'dotenv' }
     ],
     default: []
   },
@@ -104,7 +105,8 @@ module.exports = [
     choices: [
       { name: 'ESLint', value: 'eslint' },
       { name: 'Prettier', value: 'prettier' },
-      { name: 'Lint staged files', value: 'lintStaged' }
+      { name: 'Lint staged files', value: 'lintStaged' },
+      { name: 'StyleLint', value: 'stylelint' }
     ],
     default: []
   },
@@ -134,7 +136,8 @@ module.exports = [
     message: 'Choose development tools',
     type: 'checkbox',
     choices: [
-      { name: 'jsconfig.json (Recommended for VS Code)', value: 'jsconfig.json' }
+      { name: 'jsconfig.json (Recommended for VS Code)', value: 'jsconfig.json' },
+      { name: 'Semantic Pull Requests', value: 'semantic-pull-requests' }
     ],
     default: []
   }
